@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
+using System.Linq.Expressions;
 
 namespace Domashka11._11._2022_2chast
 {
@@ -173,6 +168,7 @@ namespace Domashka11._11._2022_2chast
 ввел 20 и 11, требуется нормализация, после которой
 начало диапазона станет равно 11, а конец 20
             */
+            /*
             Console.WriteLine("Введите 1 число диапазона");
             int n1=int.Parse(Console.ReadLine());
             Console.WriteLine("Введите 2 число диапазона");
@@ -188,11 +184,208 @@ namespace Domashka11._11._2022_2chast
                 if (i % 2 == 0) { Console.WriteLine(i);}
             }
             Console.ReadKey();
+            */
+            /*
+             //не суцдите строго мы еще этого не проходили
+             
+             
+            Задание 1
+Объявить одномерный(5 элементов) массив с именем A и двумерный массив(3 строки, 4 столбца) дробных чисел с именем B.Заполнить одномерный массив
+А числами, введенными с клавиатуры пользователем, а
+двумерный массив В случайными числами с помощью
+циклов.Вывести на экран значения массивов: массива
+А в одну строку, массива В — в виде матрицы.Найти в
+данных массивах общий максимальный элемент, минимальный элемент, общую сумму всех элементов, общее
+произведение всех элементов, сумму четных элементов
+массива А, сумму нечетных столбцов массива В.
+            */
+            /*
+            double max, min, sum=0, proiz=1, sumChetA=0, sumNechColB=0;
+            int[] A = new int[5];
+            for (int i = 0; i < A.Length; i++)
+            {
+                Console.WriteLine("Введите элемент массива "+(i+1));
+                A[i] = int.Parse(Console.ReadLine());           
+            }
+            foreach (int i in A)
+            {
+                Console.Write(" "+i);
+            }
+            Console.Write("\n");
+            max = A[0];
+            min = A[0];
+            for (int i = 0; i < A.Length; i++)
+            {              
+                if (A[i]>max) max = A[i];
+                else if (A[i] < min) min = A[i];
+                sum+=A[i];
+                proiz*=A[i];
+                if (A[i] % 2 == 0) sumChetA += A[i];
+            }
 
+            double [,] B = new double [3,4];
+            Random rand = new Random();
+            //расширю для себя для задания мы знаем размер
+            int rows = B.GetUpperBound(0) + 1;    // количество строк
+            int columns = B.Length / rows;        // количество столбцов
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    B[i, j] = rand.NextDouble(1, 10);
 
+                }
+            }
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    if (B[i, j] < min) min = B[i, j];
+                    else if (B[i, j] > max) max = B[i, j];
+                    sum += B[i, j];
+                    proiz *= B[i,j];
+                    if (j%2==0) sumNechColB+=B[i, j];// ищем четные тк отсчет столбцов от 0, а для нас от 1
+                    Console.Write($"{B[i, j]} \t");
+                }
+                Console.WriteLine();
+            }
+            Console.WriteLine("Максимальный элемент массивов "+max);
+            Console.WriteLine("Минимальный элемент массивов " + min);
+            Console.WriteLine("Сумма элементов массивов " + sum);
+            Console.WriteLine("Произведение элементов массивов " + proiz);
+            Console.WriteLine("Сумма четных элементов массива А " + sumChetA);
+            Console.WriteLine("Сумма нечетных столбцов массива В " + sumNechColB);
+            Console.ReadLine();
+            */
+            /*
+Задание 2
+Дан двумерный массив размерностью 5×5, заполненный случайными числами из диапазона от –100 до 100.
+Определить сумму элементов массива, расположенных
+между минимальным и максимальным элементами.
+            */
+            /*
+            int[,] arr = new int[5, 5];
+            int min = arr[0, 0], nmini = 0, nminj = 0, max = arr[0, 0], nmaxi = 0, nmaxj = 0, sum = 0;
+            Random rand = new Random();
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    arr[i, j] = rand.Next(-100, 100);
+                }
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Console.Write(arr[i, j]+" ");
+                    if (arr[i, j] > max) { max = arr[i, j]; nmaxi = i; nmaxj = j; }
+                    else if (arr[i, j] < min) { min = arr[i, j]; nmini = i; nminj = j; }
+                }
+                Console.WriteLine();
+            }
+            if (nmini > nmaxi) { int n; n = nmini; nmini = nmaxi; nmaxi = n; }
+            else if (nmini == nmaxi && nminj > nmaxj) { int n; n = nmini; nmini = nmaxi; nmaxi = n; }
+            for (int i = nmini; i <= nmaxi; i++)
+                for (int j = nminj; j <= nmaxj; j++)
+                {
+                    sum += arr[i, j];
+                }
+            Console.WriteLine(sum);
+            Console.ReadKey();
+        */
 
+        /*
+Задание 3
+Пользователь вводит строку с клавиатуры.Необходимо зашифровать данную строку используя шифр Цезаря.
+Из Википедии:
+ДОМАШНЕЕ ЗАДАНИЕ
+1
+Шифр Цезаря — это вид шифра подстановки, в котором каждый символ в открытом тексте заменяется
+символом, находящимся на некотором постоянном числе
+позиций левее или правее него в алфавите.Например, 
+в шифре со сдвигом вправо на 3, A была бы заменена на
+D, B станет E, и так далее.
+Подробнее тут: https://en.wikipedia.org/wiki/Caesar_
+        cipher.
+Кроме механизма шифровки, реализуйте механизм
+расшифрования.
+        */
+            char [] alfavit = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
+            Console.WriteLine("Введите строку для шифровки ");
+            string[] str = Console.ReadLine().Split();
+           
+            Console.WriteLine("Введите сдвиг ");
+            int sd = int.Parse(Console.ReadLine());
+            for (int i = 0; i < str.Length; i++)
+            {
+                for (int j = 0; j < alfavit.Length; j++)
+                {
+                    if (char.Parse(str[i]) == alfavit[j]) { str[i] = string.Parse(alfavit[j+sd]); }
+                }
+               
+            }
 
+            /*
+    Задание 4
+    Создайте приложение, которое производит операции
+    над матрицами:
+    ■ Умножение матрицы на число;
+    ■ Сложение матриц;
+    ■ Произведение матриц.
+            */
+            /*
+    Задание 5
+    Пользователь с клавиатуры вводит в строку арифметическое выражение. Приложение должно посчитать
+    его результат.Необходимо поддерживать только две
+    операции: +и –.
+            */
+            /*
+    Задание 6
+    Пользователь с клавиатуры вводит некоторый текст. 
+    Приложение должно изменять регистр первой буквы
+    каждого предложения на букву в верхнем регистре.
+    ДОМАШНЕЕ ЗАДАНИЕ
+    2
+    Например, если пользователь ввёл: «today is a good
+    day for walking.i will try to walk near the sea».
+    Результат работы приложения: «Today is a good day
+    for walking.I will try to walk near the sea».
+            */
+            /*
+    Задание 7
+    Создайте приложение, проверяющее текст на недопустимые слова. Если недопустимое слово найдено, оно
+    должно быть заменено на набор символов *.По итогам
+    работы приложения необходимо показать статистику
+    действий.
+    Например, если и у нас есть такой текст:
+                    To be, or not to be, that is the question,
+    Whether 'tis nobler in the mind to suffer
+    The slings and arrows of outrageous fortune,
+    Or to take arms against a sea of troubles,
+    And by opposing end them? To die: to sleep;
+                    No more; and by a sleep to say we end
+    The heart-ache and the thousand natural shocks
+    That flesh is heir to, 'tis a consummation
+    Devoutly to be wish'd. To die, to sleep
+    Недопустимое слово: die.
+    Результат работы:
+    To be, or not to be, that is the question,
+    Whether 'tis nobler in the mind to suffer
+    The slings and arrows of outrageous fortune,
+    ДОМАШНЕЕ ЗАДАНИЕ
+    3
+    Or to take arms against a sea of troubles,
+    And by opposing end them? To ***: to sleep;
+                    No more; and by a sleep to say we end
+    The heart-ache and the thousand natural shocks
+    That flesh is heir to, 'tis a consummation
+    Devoutly to be wish'd. To ***, to sleep.
+    Статистика: 2 замены слова die.
+
+            */
 
         }
+                
     }
 }
