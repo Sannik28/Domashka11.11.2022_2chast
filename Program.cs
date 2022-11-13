@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq.Expressions;
+using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
 
 namespace Domashka11._11._2022_2chast
 {
@@ -295,38 +297,43 @@ namespace Domashka11._11._2022_2chast
             Console.ReadKey();
         */
 
-        /*
-Задание 3
-Пользователь вводит строку с клавиатуры.Необходимо зашифровать данную строку используя шифр Цезаря.
-Из Википедии:
-ДОМАШНЕЕ ЗАДАНИЕ
-1
-Шифр Цезаря — это вид шифра подстановки, в котором каждый символ в открытом тексте заменяется
-символом, находящимся на некотором постоянном числе
-позиций левее или правее него в алфавите.Например, 
-в шифре со сдвигом вправо на 3, A была бы заменена на
-D, B станет E, и так далее.
-Подробнее тут: https://en.wikipedia.org/wiki/Caesar_
-        cipher.
-Кроме механизма шифровки, реализуйте механизм
-расшифрования.
-        */
-            char [] alfavit = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
-            Console.WriteLine("Введите строку для шифровки ");
-            string[] str = Console.ReadLine().Split();
-           
-            Console.WriteLine("Введите сдвиг ");
-            int sd = int.Parse(Console.ReadLine());
-            for (int i = 0; i < str.Length; i++)
-            {
-                for (int j = 0; j < alfavit.Length; j++)
-                {
-                    if (char.Parse(str[i]) == alfavit[j]) { str[i] = string.Parse(alfavit[j+sd]); }
-                }
-               
-            }
-
             /*
+    Задание 3
+    Пользователь вводит строку с клавиатуры.Необходимо зашифровать данную строку используя шифр Цезаря.
+    Из Википедии:
+    ДОМАШНЕЕ ЗАДАНИЕ
+    1
+    Шифр Цезаря — это вид шифра подстановки, в котором каждый символ в открытом тексте заменяется
+    символом, находящимся на некотором постоянном числе
+    позиций левее или правее него в алфавите.Например, 
+    в шифре со сдвигом вправо на 3, A была бы заменена на
+    D, B станет E, и так далее.
+    Подробнее тут: https://en.wikipedia.org/wiki/Caesar_
+            cipher.
+    Кроме механизма шифровки, реализуйте механизм
+    расшифрования.
+            */
+            /*
+                char [] alfavit = { 'а', 'б', 'в', 'г', 'д', 'е', 'ё', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я' };
+                Console.WriteLine("Введите строку для шифровки ");
+                string str = Console.ReadLine();
+               char[] str2 = str.ToCharArray();
+                Console.WriteLine("Введите сдвиг ");
+                int sd = int.Parse(Console.ReadLine());
+                for (int i = 0; i < str2.Length; i++)
+                {                
+                    for (int j = 0; j < alfavit.Length; j++)
+                    {                    
+                        if (str2[i] == alfavit[j]) { if (j + sd > 32) j = j + sd - 34; str2[i] = alfavit[j + sd]; break; }                                   
+                    }
+                }
+                string str1 = string.Concat(str2);
+
+                Console.WriteLine(str1);
+                Console.ReadKey();
+            */
+            /*
+        
     Задание 4
     Создайте приложение, которое производит операции
     над матрицами:
@@ -334,12 +341,111 @@ D, B станет E, и так далее.
     ■ Сложение матриц;
     ■ Произведение матриц.
             */
+
+            //делаю без запросов, но гибко, чтобы можно было вводить другие матрицы
+            //заставили вспонить матрицы в тот раз в этот уже легко :)
+            int n1 = 3, l1 = 3, n2 = 3, l2 = 3;
+            double[,] M1 = new double[n1, l1];
+            double[,] M2 = new double[n2, l2];
+            double[,]sum=new double[n1, l1];
+            double[,] ProizNCh = new double[n1, l1];
+            double[,] Proiz = new double[n1, l2];
+            Random rand = new Random();
+           
+           
+            for (int i = 0; i < n1; i++)
+            {
+                for (int j = 0; j < l1; j++)
+                {
+                    M1[i, j] = rand.Next(1, 10);
+                    Console.Write($"{M1[i, j]} \t");                    
+                }
+                Console.WriteLine("\n");
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                for (int j = 0; j < 3; j++)
+                {
+                    M2[i, j] = rand.Next(1, 10);
+                    Console.Write($"{M2[i, j]} \t");
+                }
+                Console.WriteLine("\n");
+            }
+            
+            if (n1 == n2 && l1 == l2)
+                Console.WriteLine("Сумма матриц составляет ");
+            {
+                for (int i = 0; i < n1; i++)
+                {
+                    for (int j = 0; j < l1; j++)
+                    {
+                        sum[i, j] = M1[i, j] + M2[i, j];
+                        Console.Write($"{sum[i, j]} \t");
+                    }
+                    Console.WriteLine("\n");
+                }
+            }
+            Console.WriteLine("Произведение матрицы на число 5 ");
+            for (int i = 0; i < n1; i++)
+            {
+                for (int j = 0; j < l1; j++)
+                {
+                    ProizNCh[i, j] = M1[i, j] * 5;
+                    Console.Write($"{ProizNCh[i, j]} \t");
+                }
+                Console.WriteLine("\n");
+            }
+
+            if (n1 == l2) { 
+                Console.WriteLine("Произведение матриц составляет ");
+
+            {
+                for (int i = 0; i < l2; i++)
+                {
+                        for (int j = 0; j < n1; j++)
+                        {
+                            for (int k = 0; k < n1; k++)
+                            {
+                                Proiz[i, j] += M1[i, k] * M2[k, j];
+                            }
+                            Console.Write($"{Proiz[i, j]} \t");
+                        }
+                        Console.WriteLine("\n");
+                    }                 
+                }
+            }
+            Console.ReadLine();
+
             /*
     Задание 5
     Пользователь с клавиатуры вводит в строку арифметическое выражение. Приложение должно посчитать
     его результат.Необходимо поддерживать только две
     операции: +и –.
-            */
+             */
+            string[] separator = { "+", "-" };
+            string str = Console.ReadLine();
+            string[] znach = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
+            char[] str2 = str.ToCharArray();
+            for (int i=0; i<str2.Length; i++)
+            {
+                if (str2[i])
+            }
+
+            string[] str = Console.ReadLine();
+            int mult = 1;
+            try
+            {
+                foreach (string str2 in str)
+                {
+                    mult *= Convert.ToInt32(str2);
+                }
+                Console.WriteLine(mult);
+            }
+            catch
+            {
+                Console.WriteLine("Ошибка ввода");
+            }
+
             /*
     Задание 6
     Пользователь с клавиатуры вводит некоторый текст. 
