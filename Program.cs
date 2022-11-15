@@ -2,6 +2,8 @@
 using System.Linq.Expressions;
 using System.Net.NetworkInformation;
 using System.Runtime.InteropServices;
+using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Domashka11._11._2022_2chast
 {
@@ -344,6 +346,7 @@ namespace Domashka11._11._2022_2chast
 
             //делаю без запросов, но гибко, чтобы можно было вводить другие матрицы
             //заставили вспонить матрицы в тот раз в этот уже легко :)
+            /*
             int n1 = 3, l1 = 3, n2 = 3, l2 = 3;
             double[,] M1 = new double[n1, l1];
             double[,] M2 = new double[n2, l2];
@@ -415,36 +418,43 @@ namespace Domashka11._11._2022_2chast
                 }
             }
             Console.ReadLine();
-
+            */
             /*
     Задание 5
     Пользователь с клавиатуры вводит в строку арифметическое выражение. Приложение должно посчитать
     его результат.Необходимо поддерживать только две
     операции: +и –.
              */
+            //я молодец! :) 
+            /*
             string[] separator = { "+", "-" };
             string str = Console.ReadLine();
             string[] znach = str.Split(separator, StringSplitOptions.RemoveEmptyEntries);
             char[] str2 = str.ToCharArray();
-            for (int i=0; i<str2.Length; i++)
-            {
-                if (str2[i])
-            }
-
-            string[] str = Console.ReadLine();
-            int mult = 1;
-            try
-            {
-                foreach (string str2 in str)
+            int a1= int.Parse(znach[0]);
+            int n = 0;
+            
+                for (int j = 0; j < znach.Length; j++)
                 {
-                    mult *= Convert.ToInt32(str2);
+                    for (int i = n; i < str2.Length; i++)
+                    {
+                        if (str2[i] == '-')
+                        {
+                            a1 -= Convert.ToInt32(znach[j + 1]);
+                            n = i + 1;
+                            break;
+                        }
+                        if (str2[i] == '+')
+                        {
+                            a1 += Convert.ToInt32(znach[j + 1]);
+                            n = i + 1;
+                            break;
+                        }                        
+                    }
                 }
-                Console.WriteLine(mult);
-            }
-            catch
-            {
-                Console.WriteLine("Ошибка ввода");
-            }
+            Console.WriteLine(a1);
+            Console.ReadKey();
+        */
 
             /*
     Задание 6
@@ -457,6 +467,28 @@ namespace Domashka11._11._2022_2chast
     day for walking.i will try to walk near the sea».
     Результат работы приложения: «Today is a good day
     for walking.I will try to walk near the sea».
+            */
+
+            //наверняка можно как-то интереснее и удобнее а не так топорно, но я не придумала. Было бы интересно узнать.
+            /*
+            Console.WriteLine("Введите текст.");
+            string text = Console.ReadLine();            
+            char[] t = text.ToCharArray();
+            t[0] = char.ToUpper(t[0]);
+            for (int i=0; i<t.Length; i++)
+            {
+                if (t[i] == ' ' && t[i-1] == '.' && i + 1 < t.Length)
+                {
+                    t[i + 1] = char.ToUpper(t[i + 1]);
+                }
+                else if (t[i] =='.'&&i+1< t.Length)
+                {
+                    t[i+1]= char.ToUpper(t[i + 1]);
+                }
+
+            }
+           Console.WriteLine(t);
+           Console.ReadKey();
             */
             /*
     Задание 7
@@ -490,7 +522,39 @@ namespace Domashka11._11._2022_2chast
     Статистика: 2 замены слова die.
 
             */
-
+            Console.WriteLine("Введите текст.");
+            string text = Console.ReadLine();
+            char[] t = text.ToCharArray();
+            Console.WriteLine("Введите запрещенное слово");
+            string zapr =Console.ReadLine();
+            char[] z = text.ToCharArray();
+            int shet, s;
+            for (int i = 0; i < t.Length; i++)
+            {
+                shet = 0; s = 0;
+                if (t[i] == z[0] && t[i+1] == z[1] && i+z.Length<t.Length)
+                {
+                    for (int j=2; j<z.Length-2; j++)
+                    {
+                        if (t[i + j] == z[j])
+                        {
+                        s++;
+                            if (s== z.Length - 2) 
+                            { 
+                                shet++; 
+                            for (int k=i; k<z.Length; k++)
+                                {
+                                    t[k] = '*';
+                                }
+                            }
+                        }
+                        
+                    }
+                }
+ 
+            }
+            Console.WriteLine(t);
+            Console.ReadKey();
         }
                 
     }
