@@ -527,25 +527,27 @@ namespace Domashka11._11._2022_2chast
             char[] t = text.ToCharArray();
             Console.WriteLine("Введите запрещенное слово");
             string zapr =Console.ReadLine();
-            char[] z = text.ToCharArray();
-            int shet, s;
+            char[] z = zapr.ToCharArray();
+            int shet=0, s;
             for (int i = 0; i < t.Length; i++)
             {
-                shet = 0; s = 0;
+                s = 0;
                 if (t[i] == z[0] && t[i+1] == z[1] && i+z.Length<t.Length)
                 {
-                    for (int j=2; j<z.Length-2; j++)
+                    for (int j=2; j<z.Length; j++)
                     {
                         if (t[i + j] == z[j])
                         {
-                        s++;
+                            s++;
                             if (s== z.Length - 2) 
                             { 
                                 shet++; 
-                            for (int k=i; k<z.Length; k++)
+                                
+                                for (int k=i; k<z.Length+i; k++)
                                 {
                                     t[k] = '*';
                                 }
+                                i = i + z.Length;
                             }
                         }
                         
@@ -554,6 +556,7 @@ namespace Domashka11._11._2022_2chast
  
             }
             Console.WriteLine(t);
+            Console.WriteLine("Количество замен: "+shet);
             Console.ReadKey();
         }
                 
